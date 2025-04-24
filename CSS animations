@@ -1,0 +1,83 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px;
+    background: #f0f4f8;
+    transition: background-color 0.5s ease;
+}
+
+button {
+    padding: 10px 20px;
+    background: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.4s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #005fa3;
+    transform: scale(1.05);
+}
+
+/* 🔥 Add animation to an image */
+img.animate {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+📄 index.html — Add User Preference Toggle & Animated Image
+html
+Copy
+Edit
+<section class="section">
+    <h2>Customize Background 🎨</h2>
+    <button id="toggleThemeBtn">Toggle Light/Dark Mode</button>
+</section>
+
+<section class="section">
+    <h2>Animated Image 🌀</h2>
+    <button onclick="toggleImageAnimation()">Animate Image</button><br><br>
+    <img id="animImage" src="https://via.placeholder.com/150" alt="Animated" />
+</section>
+💡 Place this after the previous sections in index.html.
+
+📜 script.js — JavaScript for Animation & localStorage
+javascript
+Copy
+Edit
+// 🌗 Toggle Background Theme + Save Preference
+const themeBtn = document.getElementById('toggleThemeBtn');
+
+themeBtn.addEventListener('click', () => {
+    const current = localStorage.getItem('theme') || 'light';
+    const newTheme = current === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+});
+
+function setTheme(theme) {
+    if (theme === 'dark') {
+        document.body.style.backgroundColor = '#1e1e2f';
+        document.body.style.color = '#f0f0f0';
+    } else {
+        document.body.style.backgroundColor = '#f0f4f8';
+        document.body.style.color = '#333';
+    }
+}
+
+// 🔁 Load saved theme on page load
+window.addEventListener('load', () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+});
+
+// 🌀 Toggle Animation Class on Image
+function toggleImageAnimation() {
+    const image = document.getElementById('animImage');
+    image.classList.toggle('animate');
+}
